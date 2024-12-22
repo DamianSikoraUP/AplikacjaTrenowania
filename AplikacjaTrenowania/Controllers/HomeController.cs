@@ -23,6 +23,19 @@ namespace AplikacjaTrenowania.Controllers
             return View();
         }
 
+        public IActionResult Trening()
+        {
+            return View();
+        }
+        public IActionResult Woda()
+        {
+            return View();
+        }
+        public IActionResult Bia³ko()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

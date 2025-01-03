@@ -6,6 +6,18 @@ namespace AplikacjaTrenowania.Controllers
 {
     public class TreningController : Controller
     {
+        private readonly ILogger<TreningController> _logger;
+        private static List<Trening> zapisaneTreningi = new List<Trening>();
+        private readonly Dictionary<string, List<string>> cwiczenia = new Dictionary<string, List<string>>
+        {
+            { "Siłowy", new List<string> { "Przysiady", "Martwy ciąg", "Wyciskanie sztangi" } },
+            { "Kardio", new List<string> { "Bieganie", "Rower", "Skakanka" } },
+            { "Stretching", new List<string> { "Joga", "Rozciąganie dynamiczne", "Pilates" } }
+        };
+        public TreningController(ILogger<TreningController> logger)
+        {
+            _logger = logger;
+        }
         // GET: TreningController
         public ActionResult Index()
         {
@@ -21,7 +33,8 @@ namespace AplikacjaTrenowania.Controllers
         // GET: TreningController/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.Cwiczenia = cwiczenia;
+            return View(new Trening());
         }
 
         // POST: TreningController/Create
@@ -38,47 +51,19 @@ namespace AplikacjaTrenowania.Controllers
                 return View();
             }
         }
-
-        // GET: TreningController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult ZapiszTrening(Trening model, int[] serieKg, int[] seriePowtorzenia)
         {
-            return View();
-        }
+            for (int i = 0; i < serieKg.Length; i++)
+            {
+                model.Serie.Add(new Seria
+                {
+                    Kg = serieKg[i],
+                    Powtorzenia = seriePowtorzenia[i]
+                });
+            }
 
-        // POST: TreningController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TreningController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TreningController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            zapisaneTreningi.Add(model);
+            return RedirectToAction("ListaTreningow");
         }
     }
 }

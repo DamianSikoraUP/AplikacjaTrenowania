@@ -14,27 +14,52 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
+                <input asp-for="Data" class="form-control" readonly/>
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Godzina" class="control-label"></label>
-                <input asp-for="Godzina" class="form-control" />
+                <input asp-for="Godzina" class="form-control" readonly />
                 <span asp-validation-for="Godzina" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RodzajTreningu" class="control-label"></label>
-                <input asp-for="RodzajTreningu" class="form-control" />
-                <span asp-validation-for="RodzajTreningu" class="text-danger"></span>
+                <select id="rodzajTreningu" asp-for="RodzajTreningu" class="form-control">
+                    <option value="" disabled selected>Wybierz rodzaj treningu</option>
+                    @foreach (var rodzaj in ViewBag.Cwiczenia.Keys)
+                    {
+                        <option value="@rodzaj">@rodzaj</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="WybierzCwiczenie" class="control-label"></label>
-                <input asp-for="WybierzCwiczenie" class="form-control" />
-                <span asp-validation-for="WybierzCwiczenie" class="text-danger"></span>
+                <select id="wybierzCwiczenie" asp-for="WybierzCwiczenie" class="form-control">
+                    <option value="" disabled selected>Wybierz ćwiczenie</option>
+                    @foreach (var item in ViewBag.Cwiczenia)
+                    {
+                        @foreach (var cwiczenie in item.Value)
+                        {
+                            <option data-cwiczenie="@item.Key">@cwiczenie</option>
+                        }
+                    }
+                </select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div id="form-group-seria">
+                <div class="row">
+                    <div class="seryjka">
+                        <input type="number" placeholder="Kg" class="form-control seria-kg" />
+                    </div>
+                    <div class="seryjka">
+                        <input type="number" placeholder="Powtórzenia" class="form-control seria-powtorzenia" />
+                    </div>
+                    <div class="seryjka">
+                        <button type="button" class="btn btn-danger remove-seria">Usuń</button>
+                    </div>
+                </div>
             </div>
+            <button type="button" id="addSeria" class="btn btn-primary mt-3">Dodaj serię</button>
+            <button type="submit" class="btn btn-success mt-3">Zapisz Trening</button>
         </form>
     </div>
 </div>
@@ -42,6 +67,9 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script src="~/js/form.js"></script>
+<script src="~/js/addserie.js"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

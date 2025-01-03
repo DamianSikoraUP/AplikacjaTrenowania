@@ -8,9 +8,9 @@ namespace AplikacjaTrenowania.Models
         [Key]
         public int IdTreningu { get; set; }
         [Column(TypeName = "nvarchar(50)")]
-        public string Data { get; set; } = string.Empty;
+        public string Data { get; set; } = DateTime.Now.Date.ToString("d");
         [Column(TypeName = "nvarchar(50)")]
-        public string Godzina { get; set; } = string.Empty;
+        public string Godzina { get; set; } = DateTime.Now.ToString("HH:mm");
         [Column(TypeName = "nvarchar(100)")]
         public string RodzajTreningu { get; set; } = string.Empty;
         [Column(TypeName = "nvarchar(100)")]

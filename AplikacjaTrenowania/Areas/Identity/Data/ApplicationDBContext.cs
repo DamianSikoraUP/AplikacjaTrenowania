@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using AplikacjaTrenowania.Models;
 
 namespace AplikacjaTrenowania.Areas.Identity.Data;
 
@@ -19,4 +20,6 @@ public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+public DbSet<AplikacjaTrenowania.Models.Trening> Trening { get; set; } = default!;
 }

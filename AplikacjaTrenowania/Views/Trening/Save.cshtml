@@ -1,0 +1,30 @@
+﻿@model AplikacjaTrenowania.Models.Trening
+
+@{
+    ViewData["Title"] = "Save";
+}
+
+<h1>Save</h1>
+
+<h4>Dodano trening @Model.IdTreningu @Model.Data @Model.Godzina @Model.RodzajTreningu @Model.WybierzCwiczenie. </h4>
+<ul>
+    @foreach (var seria in Model.Serie)
+    {
+        <li>@seria.Kg @seria.Powtorzenia</li>
+    }
+</ul>
+
+<div>
+    <a asp-action="Index">Wyświetl listę</a>
+</div>
+<div>
+    <a asp-action="Create">Dodaj kolejny trening</a>
+</div>
+
+<script src="~/js/form.js"></script>
+<script src="~/js/addserie.js"></script>
+
+@section Scripts {
+    @{
+    }
+}

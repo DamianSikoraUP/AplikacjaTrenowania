@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" readonly/>
+                <input asp-for="Data" class="form-control" readonly />
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,18 +40,18 @@
                     {
                         @foreach (var cwiczenie in item.Value)
                         {
-                            <option data-cwiczenie="@item.Key">@cwiczenie</option>
+                            <option data-cwiczenie="@item.Key" hidden>@cwiczenie</option>
                         }
                     }
                 </select>
             </div>
             <div id="form-group-seria">
-                <div class="row">
+                <div class="seria-row">
                     <div class="seryjka">
-                        <input type="number" placeholder="Kg" class="form-control seria-kg" />
+                        <input asp-for="Serie[0].Kg" class="form-control" />
                     </div>
                     <div class="seryjka">
-                        <input type="number" placeholder="Powtórzenia" class="form-control seria-powtorzenia" />
+                        <input asp-for="Serie[0].Powtorzenia" class="form-control" />
                     </div>
                     <div class="seryjka">
                         <button type="button" class="btn btn-danger remove-seria">Usuń</button>
@@ -72,5 +72,7 @@
 <script src="~/js/addserie.js"></script>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

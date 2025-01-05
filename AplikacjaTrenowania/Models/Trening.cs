@@ -16,6 +16,6 @@ namespace AplikacjaTrenowania.Models
         [Column(TypeName = "nvarchar(100)")]
         public string WybierzCwiczenie { get; set; } = string.Empty;
         public List<Seria> Serie { get; set; } = [];
-        public Trening() => Serie.Add(new Seria());
+        
     }
 }

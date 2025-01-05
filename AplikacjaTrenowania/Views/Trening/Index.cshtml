@@ -15,6 +15,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Data)
             </th>
+        </tr>
+    </thead>
+    <tbody>
+@if (Model != null)
+{
+    @foreach(var data in ViewBag.Daty)
+    {
+        <tr class= "rozwijanie-przycisk-wiersz">
+            <td>
+                <button class="rozwijanie-przycisk">+</button>@data
+            </td>
+        </tr>
+        <tr class="hidden">
             <th>
                 @Html.DisplayNameFor(model => model.Godzina)
             </th>
@@ -24,17 +37,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.WybierzCwiczenie)
             </th>
-            <th></th>
         </tr>
-    </thead>
-    <tbody>
-@if (Model != null)
-{
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Data)
-                </td>
+        @foreach (var item in Model.Where(x => x.Data == data))
+        {
+            <tr class="hidden">
                 <td>
                     @Html.DisplayFor(modelItem => item.Godzina)
                 </td>
@@ -50,7 +56,28 @@
                     <a asp-action="Delete" asp-route-id="@item.IdTreningu">Delete</a>
                 </td>
             </tr>
-    }
+        }
+    }       
 }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+    document.querySelectorAll(".rozwijanie-przycisk").forEach(button => {
+        button.addEventListener("click", function () {
+            let nextRow = this.closest("tr").nextElementSibling;
+            while (nextRow && !nextRow.classList.contains("rozwijanie-przycisk-wiersz")) {
+                if (nextRow.classList.contains("hidden")) {
+                    nextRow.classList.remove("hidden");
+                    // nextRow.classList.add("visible");
+                } else {
+                    // nextRow.classList.remove("visible");
+                    nextRow.classList.add("hidden");
+                }
+                nextRow = nextRow.nextElementSibling; 
+            }
+            this.textContent = this.textContent === "+" ? "-" : "+";
+        });
+    });
+    </script>
+}

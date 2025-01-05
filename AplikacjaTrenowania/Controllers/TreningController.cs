@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AplikacjaTrenowania.Models;
 using AplikacjaTrenowania.Areas.Identity.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AplikacjaTrenowania.Controllers
 {
@@ -19,10 +20,22 @@ namespace AplikacjaTrenowania.Controllers
             { "Stretching", new List<string> { "Joga", "Rozciąganie dynamiczne", "Pilates" } }
         };
         // GET: Trening
-        public ActionResult Index() => View();
-
+        public ActionResult Index()
+        {
+            var trening = _context.Trening.Include(x => x.Serie);
+            var daty = trening.Select(x => x.Data).Distinct().ToList();
+            ViewBag.Daty = daty;
+            return View(trening);
+        }
         // GET: Trening/Details/5
         public ActionResult Details(int id) => View();
+        public ActionResult Delete(int id)
+        {
+            var trening = _context.Trening.Find(id);
+            if(trening != null) _context.Trening.Remove(trening);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         // GET: Trening/Create
         public ActionResult Create()
@@ -32,8 +45,19 @@ namespace AplikacjaTrenowania.Controllers
         }
         // POST: Trening/Create
         [HttpPost]
-        public ActionResult Create(Trening model) => RedirectToAction("Save", model);
+        public ActionResult Create(Trening model) {
+            _context.Trening.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Save", new{id=model.IdTreningu});
+            
+            
+            
+            }
         // GET: Trening/Save
-        public ActionResult Save(Trening model) => View(model);
+        public ActionResult Save(int id)
+        {
+            var trening = _context.Trening.Include(x => x.Serie).FirstOrDefault(x => x.IdTreningu == id);
+            return View(trening);
+        }
     }
 }

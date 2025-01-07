@@ -29,12 +29,14 @@ namespace AplikacjaTrenowania.Controllers
         }
         // GET: Trening/Details/5
         public ActionResult Details(int id) => View();
-        public ActionResult Delete(int id)
+        [HttpPost]
+        [Route("Trening/Delete/{id}")]
+        public void Delete([FromBody] int id)
         {
+            // var id = dane.id;
             var trening = _context.Trening.Find(id);
             if(trening != null) _context.Trening.Remove(trening);
             _context.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         // GET: Trening/Create

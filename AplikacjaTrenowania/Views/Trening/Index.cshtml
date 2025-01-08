@@ -53,7 +53,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdTreningu">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.IdTreningu">Details</a> |
-                    <button onclick="deleteItem(@item.IdTreningu, this)">Delete</button>
+                    <button onclick="deleteWorkout(@item.IdTreningu, this)">Delete</button>
                 </td>
             </tr>
         }
@@ -62,46 +62,6 @@
     </tbody>
 </table>
 @section Scripts {
-    <script>
-    document.querySelectorAll(".rozwijanie-przycisk").forEach(button => {
-        button.addEventListener("click", function () {
-            let nextRow = this.closest("tr").nextElementSibling;
-            while (nextRow && !nextRow.classList.contains("rozwijanie-przycisk-wiersz")) {
-                if (nextRow.classList.contains("hidden")) {
-                    nextRow.classList.remove("hidden");
-                    // nextRow.classList.add("visible");
-                } else {
-                    // nextRow.classList.remove("visible");
-                    nextRow.classList.add("hidden");
-                }
-                nextRow = nextRow.nextElementSibling; 
-            }
-            this.textContent = this.textContent === "+" ? "-" : "+";
-        });
-    });
-    </script>
-    <script>
-        function deleteItem(id, button) {
-            console.log(id);
-            const dane = {
-                id: id
-            };
-            const url = "/Trening/Delete/${id}";
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: id
-            })
-                .then(response => {
-                    if (response.ok) {
-                        const row = button.closest('tr');
-                        if (row) row.remove();
-                    }
-                })
-                .catch(error => console.error('Błąd w żądaniu:', error));
-        }
-    </script>
+    <script src="~/js/expandingist.js"></script>
+    <script src="~/js/deleteworkout.js"></script>
 }

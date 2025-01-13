@@ -12,7 +12,6 @@ namespace AplikacjaTrenowania.Controllers
         {
             _context = context;
         }
-        private readonly ILogger<TreningController> _logger;
         private static List<Trening> zapisaneTreningi = new List<Trening>();
         private readonly Dictionary<string, List<string>> cwiczenia = new() {
             { "Siłowy", new List<string> { "Przysiady", "Martwy ciąg", "Wyciskanie sztangi" } },
@@ -27,16 +26,48 @@ namespace AplikacjaTrenowania.Controllers
             ViewBag.Daty = daty;
             return View(trening);
         }
-        // GET: Trening/Details/5
-        public ActionResult Details(int id) => View();
+        // GET: Trening/Edit
+        [Route("Trening/Edit")]
+        public ActionResult Edit(int id)
+        {
+            ViewBag.Cwiczenia = cwiczenia;
+            var trening = _context.Trening.Include(x => x.Serie).FirstOrDefault(x => x.IdTreningu == id);
+            if (trening != null)
+            {
+                return View("Edit",trening);
+            }
+            return BadRequest(new { error = "Wystapil blad" });
+        }
+
+        [HttpPost]
+        [Route("Trening/Edit")]
+        public IActionResult Edit(int id, Trening trening)
+        {
+            var treningDoEdycji = _context.Trening.Include(x => x.Serie).FirstOrDefault(x => x.IdTreningu == id);
+            if (treningDoEdycji != null)
+            {
+                treningDoEdycji.RodzajTreningu = trening.RodzajTreningu;
+                treningDoEdycji.WybierzCwiczenie = trening.WybierzCwiczenie;
+                treningDoEdycji.Serie = trening.Serie;
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return NotFound(new { error = "Nie znaleziono treningu" });
+        }
+
+        // GET: Trening/Delete
         [HttpPost]
         [Route("Trening/Delete/{id}")]
-        public void Delete([FromBody] int id)
+        public ActionResult Delete([FromBody] int id)
         {
-            // var id = dane.id;
             var trening = _context.Trening.Find(id);
-            if(trening != null) _context.Trening.Remove(trening);
-            _context.SaveChanges();
+            if (trening != null)
+            {
+                _context.Trening.Remove(trening);
+                _context.SaveChanges();
+                return Ok();
+            }
+            return BadRequest(new {error="Wystapil blad"});
         }
 
         // GET: Trening/Create
@@ -51,9 +82,6 @@ namespace AplikacjaTrenowania.Controllers
             _context.Trening.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Save", new{id=model.IdTreningu});
-            
-            
-            
             }
         // GET: Trening/Save
         public ActionResult Save(int id)

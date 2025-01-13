@@ -1,16 +1,16 @@
 ﻿@model AplikacjaTrenowania.Models.Trening
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Trening</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-route-id="@Model.IdTreningu" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Data" class="control-label"></label>
@@ -46,6 +46,22 @@
                 </select>
             </div>
             <div id="form-group-seria">
+                @if(Model.Serie.Count()>0){
+					for (int i = 0; i < Model.Serie.Count(); i++)
+                    {
+                        <div class="row seria-row">
+                            <div class="seryjka">
+                                <input type="number" value="@Model.Serie[i].Kg" name="Serie[@i].Kg" placeholder="Kg" class="form-control seria-kg" />
+                            </div>
+                            <div class="seryjka">
+                                <input type="number" value="@Model.Serie[i].Powtorzenia" name="Serie[@i].Powtorzenia" placeholder="Powtórzenia" class="form-control seria-powtorzenia" />
+                            </div>
+                            <div class="seryjka">
+                                <button type="button" class="btn btn-danger remove-seria" onclick="deleting(this)">Usuń</button>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
             <button type="button" id="addSeria" class="btn btn-primary mt-3">Dodaj serię</button>
             <button type="submit" class="btn btn-success mt-3">Zapisz Trening</button>
@@ -59,6 +75,7 @@
 
 <script src="~/js/form.js"></script>
 <script src="~/js/addserie.js"></script>
+<script src="~/js/editdelete.js"></script>
 
 @section Scripts {
     @{

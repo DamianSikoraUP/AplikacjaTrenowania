@@ -1,9 +1,5 @@
 ﻿function deleteWorkout(id, button) {
-    console.log(id);
-    const dane = {
-        id: id
-    };
-    const url = "/Trening/Delete/${id}";
+    const url = `/Trening/Delete/${id}`;
     fetch(url, {
         method: 'POST',
         headers: {

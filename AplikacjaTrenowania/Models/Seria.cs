@@ -13,6 +13,6 @@ namespace AplikacjaTrenowania.Models
         public int Powtorzenia { get; set; }
         [ForeignKey("Trening")]
         public int IdTreningu { get; set; }
-        public Trening Trening { get; set; }
+        public required Trening Trening { get; set; }
     }
 }

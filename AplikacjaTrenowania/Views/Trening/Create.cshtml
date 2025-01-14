@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
             <div class="form-group">
                 <label asp-for="Data" class="control-label"></label>
                 <input asp-for="Data" class="form-control" readonly />
@@ -23,8 +24,8 @@
                 <span asp-validation-for="Godzina" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RodzajTreningu" class="control-label"></label>
-                <select id="rodzajTreningu" asp-for="RodzajTreningu" class="form-control">
+                <label for="rodzajTreningu" class="control-label"></label>
+                <select id="rodzajTreningu" name="rodzajTreningu" class="form-control">
                     <option value="" disabled selected>Wybierz rodzaj treningu</option>
                     @foreach (var rodzaj in ViewBag.Cwiczenia.Keys)
                     {
@@ -33,8 +34,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="WybierzCwiczenie" class="control-label"></label>
-                <select id="wybierzCwiczenie" asp-for="WybierzCwiczenie" class="form-control">
+                <label for="wybierzCwiczenie" class="control-label"></label>
+                <select id="wybierzCwiczenie" name="wybierzCwiczenie" class="form-control">
                     <option value="" disabled selected>Wybierz ćwiczenie</option>
                     @foreach (var item in ViewBag.Cwiczenia)
                     {

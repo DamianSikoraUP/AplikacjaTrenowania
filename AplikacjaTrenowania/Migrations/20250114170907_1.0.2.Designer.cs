@@ -4,6 +4,7 @@ using AplikacjaTrenowania.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplikacjaTrenowania.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250114170907_1.0.2")]
+    partial class _102
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,27 +98,6 @@ namespace AplikacjaTrenowania.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AplikacjaTrenowania.Models.DefinicjaTreningu", b =>
-                {
-                    b.Property<int>("IdKategorii")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdKategorii"));
-
-                    b.Property<string>("RodzajTreningu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("WybierzCwiczenie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("IdKategorii");
-
-                    b.ToTable("DefinicjaTreningu");
-                });
-
             modelBuilder.Entity("AplikacjaTrenowania.Models.Seria", b =>
                 {
                     b.Property<int>("IdSerii")
@@ -156,16 +138,19 @@ namespace AplikacjaTrenowania.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("IdKategorii")
-                        .HasColumnType("int");
+                    b.Property<string>("RodzajTreningu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("IdTreningu");
+                    b.Property<string>("WybierzCwiczenie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasIndex("IdKategorii");
+                    b.HasKey("IdTreningu");
 
                     b.HasIndex("UserId");
 
@@ -322,19 +307,11 @@ namespace AplikacjaTrenowania.Migrations
 
             modelBuilder.Entity("AplikacjaTrenowania.Models.Trening", b =>
                 {
-                    b.HasOne("AplikacjaTrenowania.Models.DefinicjaTreningu", "DefinicjaTreningu")
-                        .WithMany("Trening")
-                        .HasForeignKey("IdKategorii")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AplikacjaTrenowania.Areas.Identity.Data.ApplicationUser", "User")
                         .WithMany("Treningi")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("DefinicjaTreningu");
 
                     b.Navigation("User");
                 });
@@ -393,11 +370,6 @@ namespace AplikacjaTrenowania.Migrations
             modelBuilder.Entity("AplikacjaTrenowania.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.Navigation("Treningi");
-                });
-
-            modelBuilder.Entity("AplikacjaTrenowania.Models.DefinicjaTreningu", b =>
-                {
-                    b.Navigation("Trening");
                 });
 
             modelBuilder.Entity("AplikacjaTrenowania.Models.Trening", b =>

@@ -23,8 +23,8 @@
                 <span asp-validation-for="Godzina" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RodzajTreningu" class="control-label"></label>
-                <select id="rodzajTreningu" asp-for="RodzajTreningu" class="form-control">
+                <label asp-for="DefinicjaTreningu.RodzajTreningu" class="control-label"></label>
+                <select id="rodzajTreningu" asp-for="DefinicjaTreningu.RodzajTreningu" class="form-control">
                     <option value="" disabled selected>Wybierz rodzaj treningu</option>
                     @foreach (var rodzaj in ViewBag.Cwiczenia.Keys)
                     {
@@ -33,8 +33,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="WybierzCwiczenie" class="control-label"></label>
-                <select id="wybierzCwiczenie" asp-for="WybierzCwiczenie" class="form-control">
+                <label asp-for="DefinicjaTreningu.WybierzCwiczenie" class="control-label"></label>
+                <select id="wybierzCwiczenie" asp-for="DefinicjaTreningu.WybierzCwiczenie" class="form-control">
                     <option value="" disabled selected>Wybierz ćwiczenie</option>
                     @foreach (var item in ViewBag.Cwiczenia)
                     {
@@ -51,10 +51,10 @@
                     {
                         <div class="row seria-row">
                             <div class="seryjka">
-                                <input type="number" value="@Model.Serie[i].Kg" name="Serie[@i].Kg" placeholder="Kg" class="form-control seria-kg" />
+                                <input type="number" value="@Model.Serie[i].Kg" name="Serie[@i].Kg" placeholder="Kg" class="form-control seria-kg" min="0"/>
                             </div>
                             <div class="seryjka">
-                                <input type="number" value="@Model.Serie[i].Powtorzenia" name="Serie[@i].Powtorzenia" placeholder="Powtórzenia" class="form-control seria-powtorzenia" />
+                                <input type="number" value="@Model.Serie[i].Powtorzenia" name="Serie[@i].Powtorzenia" placeholder="Powtórzenia" class="form-control seria-powtorzenia" min="0" />
                             </div>
                             <div class="seryjka">
                                 <button type="button" class="btn btn-danger remove-seria" onclick="deleting(this)">Usuń</button>

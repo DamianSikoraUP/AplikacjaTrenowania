@@ -3,86 +3,94 @@
 @{
     ViewData["Title"] = "Index";
 }
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="alert alert-warning">
+        Nie jesteś zalogowany. <a id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </div>
+}
+else
+{
+    <h1>Index</h1>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Data)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    @if (Model != null)
-    {
-        @foreach(var data in ViewBag.Daty)
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Data)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model != null)
         {
-            <tr class= "rozwijanie-przycisk-wiersz">
-                <td>
-                    <button class="rozwijanie-przycisk">+</button>@data
-                </td>
-            </tr>
-            <tr class="hidden">
-                <th>
-                    @Html.DisplayNameFor(model => model.Godzina)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RodzajTreningu)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.WybierzCwiczenie)
-                </th>
-            </tr>
-            @foreach (var item in Model.Where(x => x.Data == data))
+            @foreach(var data in ViewBag.Daty)
             {
+                <tr class= "rozwijanie-przycisk-wiersz">
+                    <td>
+                        <button class="rozwijanie-przycisk">+</button>@data
+                    </td>
+                </tr>
                 <tr class="hidden">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Godzina)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RodzajTreningu)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WybierzCwiczenie)
-                    </td>
-                    <td>
-                        @* <a asp-action="Edit" asp-route-id="@item.IdTreningu">Edit</a> | *@
-                        @* <a asp-action="Details" asp-route-id="@item.IdTreningu">Details</a> | *@
-                        <button onclick="editWorkout(@item.IdTreningu, this)">Edit</button>
-                        <button onclick="workoutDetails(@item.IdTreningu, this)">Details</button>
-                        <button onclick="deleteWorkout(@item.IdTreningu, this)">Delete</button>
-                    </td>
-                </tr>
-                    <tr class="hidden hiddenDetails details@(item.IdTreningu)">
                     <th>
-                            @Html.DisplayNameFor(model => model.Serie.First().Powtorzenia)
+                        @Html.DisplayNameFor(model => model.Godzina)
                     </th>
                     <th>
-                            @Html.DisplayNameFor(model => model.Serie.First().Kg)
+                            @Html.DisplayNameFor(model => model.DefinicjaTreningu.RodzajTreningu)
+                    </th>
+                    <th>
+                            @Html.DisplayNameFor(model => model.DefinicjaTreningu.WybierzCwiczenie)
                     </th>
                 </tr>
-					    @foreach (var seria in item.Serie)
-					    {
-						    <tr class="hidden hiddenDetails details@(seria.IdTreningu)">
-							    <td>
-								    @Html.DisplayFor(modelItem => seria.Powtorzenia)
-							    </td>
-							    <td>
-								    @Html.DisplayFor(modelItem => seria.Kg)
-							    </td>
-						    </tr>
+                @foreach (var item in Model.Where(x => x.Data == data))
+                {
+                    <tr class="hidden">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Godzina)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.DefinicjaTreningu.RodzajTreningu)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.DefinicjaTreningu.WybierzCwiczenie)
+                        </td>
+                        <td>
+                            @* <a asp-action="Edit" asp-route-id="@item.IdTreningu">Edit</a> | *@
+                            @* <a asp-action="Details" asp-route-id="@item.IdTreningu">Details</a> | *@
+                            <button onclick="editWorkout(@item.IdTreningu, this)">Edit</button>
+                            <button onclick="workoutDetails(@item.IdTreningu, this)">Details</button>
+                            <button onclick="deleteWorkout(@item.IdTreningu, this)">Delete</button>
+                        </td>
+                    </tr>
+                        <tr class="hidden hiddenDetails details@(item.IdTreningu)">
+                        <th>
+                                @Html.DisplayNameFor(model => model.Serie.First().Powtorzenia)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.Serie.First().Kg)
+                        </th>
+                    </tr>
+					        @foreach (var seria in item.Serie)
+					        {
+						        <tr class="hidden hiddenDetails details@(seria.IdTreningu)">
+							        <td>
+								        @Html.DisplayFor(modelItem => seria.Powtorzenia)
+							        </td>
+							        <td>
+								        @Html.DisplayFor(modelItem => seria.Kg)
+							        </td>
+						        </tr>
 
-                        }
-            }       
+                            }
+                }       
+            }
         }
-    }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
 @section Scripts {
     <script src="~/js/expandingist.js"></script>
     <script src="~/js/editworkout.js"></script>

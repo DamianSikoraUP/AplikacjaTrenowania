@@ -22,12 +22,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Trening" asp-action="Index">Trening</a>
                         </li>
-                        <li class="nav-item">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Trening" asp-action="Dod_Kat">Dodaj Kategorie</a>
+                            </li>
+                        }
+                       @*  <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Trening" asp-action="Woda">Woda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Trening" asp-action="Białko">Białko</a>
-                        </li>
+                        </li> *@
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />

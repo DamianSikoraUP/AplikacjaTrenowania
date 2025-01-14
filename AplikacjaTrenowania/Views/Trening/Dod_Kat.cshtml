@@ -1,0 +1,36 @@
+﻿@model AplikacjaTrenowania.Models.DefinicjaTreningu
+@{
+    ViewData["Title"] = "Dod_Kat";
+}
+
+<h1>Dod_Kat</h1>
+
+<h4>Trening</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Dod_Kat">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="RodzajTreningu" class="control-label"></label>
+                <select id="rodzajTreningu" asp-for="RodzajTreningu" class="form-control" required>
+                    <option value="" disabled selected>Wybierz rodzaj treningu</option>
+                    @foreach (var rodzaj in ViewBag.Rodzaje)
+                    {
+                        <option value="@rodzaj">@rodzaj</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WybierzCwiczenie" class="control-label"></label>
+                <input asp-for="WybierzCwiczenie" class="form-control" required/>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Dodaj Ćwiczenie</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

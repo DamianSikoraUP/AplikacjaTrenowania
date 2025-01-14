@@ -10,8 +10,9 @@
     })
         .then(response => {
             if (response.ok) {
-                const row = button.closest('tr');
-                if (row) row.remove();
+//                const row = button.closest('tr');
+//                if (row) row.remove();
+                location.reload();
             }
         })
         .catch(error => console.error('Błąd w żądaniu:', error));

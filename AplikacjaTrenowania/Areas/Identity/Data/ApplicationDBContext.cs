@@ -23,4 +23,5 @@ public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Trening> Trening { get; set; }
     public DbSet<Seria> Seria { get; set; }
+    public DbSet<DefinicjaTreningu> DefinicjaTreningu { get; set; }
 }

@@ -1,4 +1,4 @@
-Opis instalacji
+    Opis instalacji
 
 
 ![image](https://github.com/user-attachments/assets/621ecfbe-e26e-4115-b077-8d8c5666a0b2)
@@ -16,7 +16,7 @@ Add-Migration Migracja
 Update-Database
 
 
-Wymagania:
+    Wymagania:
 
 SQL Server Developer Edition
 
@@ -45,14 +45,14 @@ Microsoft.EntityFrameworkCore.Tools 8.0.11
 Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0.7
 
 
-Łańcuch połączenia z bazą
+    Łańcuch połączenia z bazą
 
 "ApplicationDBContextConnection": "Server=Server name;Database=AplikacjaTrenowania;Trusted_Connection=True;TrustServerCertificate=True;"
 
 Server name należy zamienić na wartość Server name z aplikacji SQL Server Management Studio
 
 
-Użytkownicy testowi
+  Użytkownicy testowi
 
 user@user.com
 
@@ -63,7 +63,7 @@ admin@admin.com
 zaq1@WSX
 
 
-Opis działania aplikacji z punktu widzenia użytkownika:
+    Opis działania aplikacji z punktu widzenia użytkownika:
 
 Użytkownik może stworzyć konto i się na nie zalogować. Użytkownik ma możliwość wejścia w zakładkę Trening, w której pokazuje mu się opcja dodania trenowanego przez siebie ćwiczenia wraz z liczbą powtórzeń oraz kilogramami. Ćwiczenia te zapisują się na jego koncie wraz z datą i godziną.
 

@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-@if (!User.Identity.IsAuthenticated)
+@if (!User?.Identity?.IsAuthenticated == true)
 {
     <div class="alert alert-warning">
         Nie jesteś zalogowany. <a id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
@@ -39,10 +39,10 @@ else
                         @Html.DisplayNameFor(model => model.Godzina)
                     </th>
                     <th>
-                            @Html.DisplayNameFor(model => model.DefinicjaTreningu.RodzajTreningu)
+                            Rodzaj Treningu
                     </th>
                     <th>
-                            @Html.DisplayNameFor(model => model.DefinicjaTreningu.WybierzCwiczenie)
+                            Wybierz Ćwiczenie
                     </th>
                 </tr>
                 @foreach (var item in Model.Where(x => x.Data == data))
@@ -67,19 +67,19 @@ else
                     </tr>
                         <tr class="hidden hiddenDetails details@(item.IdTreningu)">
                         <th>
-                                @Html.DisplayNameFor(model => model.Serie.First().Powtorzenia)
+                                Powtórzenia
                         </th>
                         <th>
-                                @Html.DisplayNameFor(model => model.Serie.First().Kg)
+                                Kilogramy
                         </th>
                     </tr>
 					        @foreach (var seria in item.Serie)
 					        {
 						        <tr class="hidden hiddenDetails details@(seria.IdTreningu)">
-							        <td>
+                                    <td class="wcieciePowtorzenia">
 								        @Html.DisplayFor(modelItem => seria.Powtorzenia)
 							        </td>
-							        <td>
+                                    <td class="wciecieKg">
 								        @Html.DisplayFor(modelItem => seria.Kg)
 							        </td>
 						        </tr>

@@ -23,7 +23,7 @@
                 <span asp-validation-for="Godzina" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DefinicjaTreningu.RodzajTreningu" class="control-label"></label>
+                <label asp-for="DefinicjaTreningu.RodzajTreningu" class="control-label">Rodzaj Treningu</label>
                 <select id="rodzajTreningu" asp-for="DefinicjaTreningu.RodzajTreningu" class="form-control" required>
                     <option value="" disabled selected>Wybierz rodzaj treningu</option>
                     @foreach (var rodzaj in ViewBag.Cwiczenia.Keys)
@@ -33,7 +33,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="DefinicjaTreningu.WybierzCwiczenie" class="control-label"></label>
+                <label asp-for="DefinicjaTreningu.WybierzCwiczenie" class="control-label">Wybierz Cwiczenie</label>
                 <select id="wybierzCwiczenie" asp-for="DefinicjaTreningu.WybierzCwiczenie" class="form-control" required>
                     <option value="" disabled selected>Wybierz ćwiczenie</option>
                     @foreach (var item in ViewBag.Cwiczenia)
@@ -76,6 +76,7 @@
 <script src="~/js/form.js"></script>
 <script src="~/js/addserie.js"></script>
 <script src="~/js/editdelete.js"></script>
+<script src="~/js/walidacja.js"></script>
 
 @section Scripts {
     @{

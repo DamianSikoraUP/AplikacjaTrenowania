@@ -9,7 +9,7 @@ namespace AplikacjaTrenowania.Models
         [Key]
         public int IdTreningu { get; set; }
         [Required]
-        public string UserId { get; set; }
+        public required string UserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
         [Column(TypeName = "nvarchar(50)")]
@@ -22,7 +22,7 @@ namespace AplikacjaTrenowania.Models
         public DefinicjaTreningu DefinicjaTreningu { get; set; }
         [Column(TypeName = "nvarchar(50)")]
         public List<Seria> Serie { get; set; } = [];
-        public Trening() { }
-        public Trening(string userId) { UserId = userId; }
+        //public Trening() { }
+        //public Trening(string userId) { UserId = userId; }
     }
 }

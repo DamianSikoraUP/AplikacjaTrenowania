@@ -85,7 +85,10 @@ namespace AplikacjaTrenowania.Controllers
                 g => g.Key,
                 g => g.Select(d => d.WybierzCwiczenie).ToList()
             );
-            return View(new Trening(userId));
+            return View(new Trening()
+            {
+                UserId = userId
+            });
         }
         // POST: Trening/Create
         [HttpPost]

@@ -1,19 +1,19 @@
-﻿function mniejNizJedeeeeeeeen() {
-    const serie = document.querySelectorAll(".seria-row");
-    if (serie.length === 0) {
-        alert("Musisz dodać co najmniej jedną serię przed zapisaniem treningu.");
-        return false;
-    }
+﻿//function mniejNizJedeeeeeeeen() {
+//    const serie = document.querySelectorAll(".seria-row");
+//    if (serie.length === 0) {
+//        alert("Musisz dodać co najmniej jedną serię przed zapisaniem treningu.");
+//        return false;
+//    }
 
-    const pola = document.querySelectorAll(".seria-kg, .seria-powtorzenia");
-    for (const wartosc of pola) {
-        if (wartosc.value < 1) {
-            alert("Kilogramy oraz powtórzenia nie mogą być mniejsze od 1.");
-            return false;
-        }
-    }
-    return true;
-}
+//    const pola = document.querySelectorAll(".seria-kg, .seria-powtorzenia");
+//    for (const wartosc of pola) {
+//        if (wartosc.value < 1) {
+//            alert("Kilogramy oraz powtórzenia nie mogą być mniejsze od 1.");
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
 document.getElementById("addSeria").addEventListener("click", function () {
     const container = document.getElementById("form-group-seria");
